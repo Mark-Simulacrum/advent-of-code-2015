@@ -1,61 +1,57 @@
 let fs = require("fs");
+let _ = require("lodash");
 
-let data = fs.readFileSync("/tmp/data").toString();
+let data = fs.readFileSync("./data").toString();
 
-let lights = {};
+let lights = [];
 
-function getStrPos(x, y) {
-	return `${x},${y}`;
+for (let x = 0; x <= 999; x++) {
+	let row = [];
+	for (let y = 0; y <= 999; y++) {
+		row.push(0);
+	}
+	lights.push(row);
 }
 
 function toggle(x, y) {
-	lights[getStrPos(x, y)] += 2;
+	lights[x][y] += 2;
 }
 
 function turnOn(x, y) {
-	lights[getStrPos(x, y)] += 1;
+	lights[x][y]++;
 }
 
 function turnOff(x, y) {
-	lights[getStrPos(x, y)] -= 1;
-	if (lights[getStrPos(x, y)] <= 0) delete lights[getStrPos(x, y)];
+	if (lights[x][y] > 0) lights[x][y]--;
 }
 
 let instructions = data.split("\n");
 
-instructions.forEach((instruction, index) => {
+instructions.forEach(instruction => {
 	let appliedFunction;
 
-	if (instruction.startsWith("turn on")) {
+	let regexExec = /(\d+),(\d+) through (\d+),(\d+)/.exec(instruction);
+
+	let startX = parseInt(regexExec[1], 10);
+	let startY = parseInt(regexExec[2], 10);
+
+	let endX = parseInt(regexExec[3], 10);
+	let endY = parseInt(regexExec[4], 10);
+
+	if (instruction.indexOf("turn on") === 0) {
 		appliedFunction = turnOn;
-
-		instruction = instruction.substr(8);
-	} else if (instruction.startsWith("turn off")) {
+	} else if (instruction.indexOf("turn off") === 0) {
 		appliedFunction = turnOff;
-
-		instruction = instruction.substr(9);
-	} else if (instruction.startsWith("toggle")) {
+	} else if (instruction.indexOf("toggle") === 0) {
 		appliedFunction = toggle;
-
-		instruction = instruction.substr(7);
 	}
-
-	let coords = instruction.split(" through ");
-
-	let startX = parseInt(coords[0].split(",")[0], 10);
-	let endX = parseInt(coords[1].split(",")[0], 10);
-
-	let startY = parseInt(coords[0].split(",")[1], 10);
-	let endY = parseInt(coords[1].split(",")[1], 10);
 
 	for (let x = startX; x <= endX; x++) {
 		for (let y = startY; y <= endY; y++) {
-			if (!lights[getStrPos(x, y)]) lights[getStrPos(x, y)] = 0;
 			appliedFunction(x, y);
 		}
 	}
-
-	console.log(index, "out of", instructions.length);
 });
 
-console.log(Object.keys(lights).map(k => lights[k]).reduce((a,b) => a+b, 0));
+const out = _(lights).flatten().reduce((a, b) => a + b, 0);
+console.log(out, 17836115 - out);
