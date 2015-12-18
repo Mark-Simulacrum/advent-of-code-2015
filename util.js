@@ -23,7 +23,7 @@ function permutations(array) {
 }
 
 // k = length of resulting combinations
-function combinations(array, k) {
+function _combinations(array, k) {
     let returnArr = [];
 
     if (k === 1) {
@@ -33,23 +33,27 @@ function combinations(array, k) {
     while (array.length) {
         let value = array.shift();
 
-        if (k > 0) {
-            let sub = combinations(array.slice(0), k - 1);
+        let sub = combinations(array.slice(0), k - 1);
 
-            let insertedSelfSub = sub.map(next => [value, ...next]);
-
-            returnArr.push(...insertedSelfSub);
+        for (let i = 0; i < sub.length; i++) {
+            let cur = sub[i];
+            returnArr.push([value].concat(sub[i]));
         }
     }
 
     return returnArr;
 }
 
+const combinations = _.memoize(_combinations, (a, b) => a.join("") + b);
+
 function allCombinations(array) {
-    return _.flatten(array.map((_, index) => {
-        console.log("operating on k =", index);
-        return combinations(array, index);
-    }));
+    let combs = [];
+
+    for (let i = 1; i <= array.length; i++) {
+        combs = combs.concat(combinations(array.slice(0), i));
+    }
+
+    return combs;
 }
 
 function sum(array) {
