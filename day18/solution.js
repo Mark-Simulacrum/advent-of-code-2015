@@ -10,8 +10,7 @@ for (let y = 0; y < lightRows.length; y++) {
 	for (let x = 0; x < row.length; x++) {
 		let light = row.charAt(x);
 
-
-		lights[y][x] = light === "#" ? 1 : 0;
+		lights[y][x] = light === "#" ? true : false;
 	}
 }
 
