@@ -13,11 +13,10 @@ function permutations(array) {
 
         let possibilities = permutations(otherValues, false);
 
-        possibilities.push(value);
-        poss.push(possibilities);
+        for (let x = 0; x < possibilities.length; x++) {
+            poss.push([value].concat(possibilities[x]));
+        }
     }
-
-    console.log("returning from permute", array.length, poss.length);
 
     return poss;
 }
