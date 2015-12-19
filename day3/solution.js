@@ -6,12 +6,15 @@ let roboSantaPosition = [0, 0];
 let uniqueSantaPositions = [];
 
 function updateUniquePositions() {
-	if (uniqueSantaPositions.indexOf(santaPosition.toString()) === -1) {
-		uniqueSantaPositions.push(santaPosition.toString());
+	let santaPositionStr = santaPosition.toString();
+	let roboSantaPositionStr = roboSantaPosition.toString();
+
+	if (uniqueSantaPositions.indexOf(santaPositionStr) === -1) {
+		uniqueSantaPositions.push(santaPositionStr);
 	}
 
-	if (uniqueSantaPositions.indexOf(roboSantaPosition.toString()) === -1) {
-		uniqueSantaPositions.push(roboSantaPosition.toString());
+	if (uniqueSantaPositions.indexOf(roboSantaPositionStr) === -1) {
+		uniqueSantaPositions.push(roboSantaPositionStr);
 	}
 }
 
