@@ -35,7 +35,6 @@ function _combinations(array, k) {
         let sub = combinations(array.slice(0), k - 1);
 
         for (let i = 0; i < sub.length; i++) {
-            let cur = sub[i];
             returnArr.push([value].concat(sub[i]));
         }
     }
