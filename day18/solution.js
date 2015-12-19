@@ -14,7 +14,6 @@ for (let y = 0; y < lightRows.length; y++) {
 	}
 }
 
-
 function getNeighbors(currentState, row, column) {
 	let neighbors = [];
 
