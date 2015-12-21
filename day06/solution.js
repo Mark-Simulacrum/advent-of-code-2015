@@ -54,4 +54,4 @@ instructions.forEach(instruction => {
 });
 
 const out = _(lights).flatten().reduce((a, b) => a + b, 0);
-console.log(out, 17836115 - out);
+console.log("Light level:", out);
