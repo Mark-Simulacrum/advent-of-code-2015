@@ -27,4 +27,3 @@ let numberValues = _.flattenDeep(values).filter(value => typeof value === "numbe
 console.log(numberValues);
 
 console.log(numberValues.reduce((a,b) => a+b, 0));
-
