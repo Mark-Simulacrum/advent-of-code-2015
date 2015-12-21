@@ -21,6 +21,6 @@ for index, char in enumerate(input):
 	elif char is '<':
 		position[1] -= 1
 
-	uniquePositions.add((position[0], position[1]))
+	uniquePositions.add(tuple(position))
 
 print "Happy Houses:", len(uniquePositions)
