@@ -92,7 +92,6 @@ while (!isCorrectPassword(currentPassword)) {
 	currentPassword = incrementPassword(currentPassword);
 }
 
-
 currentPassword = incrementPassword(currentPassword);
 
 while (!isCorrectPassword(currentPassword)) {
