@@ -90,15 +90,14 @@ let startedAt = Date.now();
 while (!isCorrectPassword(currentPassword)) {
 	i++;
 	currentPassword = incrementPassword(currentPassword);
-	console.log(currentPassword, (Date.now() - startedAt) * 1000 / i, "ops/s");
 }
+
 
 currentPassword = incrementPassword(currentPassword);
 
 while (!isCorrectPassword(currentPassword)) {
 	i++;
 	currentPassword = incrementPassword(currentPassword);
-	console.log(currentPassword, (Date.now() - startedAt) * 1000 / i, "ops/s");
 }
 
 console.log(currentPassword, isCorrectPassword(currentPassword));
