@@ -12,8 +12,6 @@ data.split("\n").forEach(line => {
 		.replace(/\\/g, "\\\\")
 		.replace(/"/g, "\\\"");
 
-	console.log(line, `"${encodedLine}"`);
-
 	encodedCharacters += encodedLine.length + 2;
 });
 
