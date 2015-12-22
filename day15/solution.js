@@ -32,14 +32,13 @@ function getPropertyScore(property, cookieIngredients) {
 function calculateScore(cookieIngredients) {
 	let properties = ["capacity", "durability", "flavor", "texture"];
 
-	let propertyScores = {};
-	properties.forEach(property => (propertyScores[property] = getPropertyScore(property, cookieIngredients)));
-
-	propertyScores = _.mapValues(propertyScores, currentValue => {
-		return currentValue < 0 ? 0 : currentValue;
+	let propertyScores = [];
+	properties.forEach(property => {
+		let score = getPropertyScore(property, cookieIngredients);
+		propertyScores.push(Math.max(0, score));
 	});
 
-	let score = _(propertyScores).values().reduce((a, b) => a * b);
+	let score = propertyScores.reduce((a, b) => a * b);
 
 	let calories = getPropertyScore("calories", cookieIngredients);
 
@@ -47,16 +46,17 @@ function calculateScore(cookieIngredients) {
 }
 
 function addValue(ingredient, value) {
-	return Object.assign(ingredient, { value });
+	ingredient.value = value;
+	return ingredient;
 }
 
 let maxScore = 0;
 let keys = Object.keys(ingredients);
 
 let optionsTried = 0;
-for (let i of _.range(0, 100)) {
-	for (let j of _.range(0, 100 - i)) {
-		for (let k of _.range(0, 100 - i - j)) {
+for (let i of _.range(1, 100)) {
+	for (let j of _.range(1, 100 - i)) {
+		for (let k of _.range(1, 100 - i - j)) {
 			let h = 100 - i - j - k;
 
 			let scoreInput = [
