@@ -32,10 +32,9 @@ function getPropertyScore(property, cookieIngredients) {
 function calculateScore(cookieIngredients) {
 	let properties = ["capacity", "durability", "flavor", "texture"];
 
-	let propertyScores = [];
-	properties.forEach(property => {
+	let propertyScores = properties.map(property => {
 		let score = getPropertyScore(property, cookieIngredients);
-		propertyScores.push(Math.max(0, score));
+		return Math.max(0, score);
 	});
 
 	let score = propertyScores.reduce((a, b) => a * b);
