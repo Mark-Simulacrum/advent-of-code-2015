@@ -26,8 +26,6 @@ for (let line of input.split("\n")) {
 	people["Me"][person] = 0;
 }
 
-console.log(people);
-
 let permutations = util.permutations(Object.keys(people));
 
 function sittingNextTo(name, array) {
