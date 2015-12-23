@@ -44,4 +44,3 @@ aunts.forEach((aunt, index) => {
 });
 
 console.log(successfulAunts);
-console.log(hint);
