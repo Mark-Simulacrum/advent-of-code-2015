@@ -57,6 +57,4 @@ function getCombinations(array) {
 	return combinations;
 }
 
-// console.log(synthesizeable);
-console.log(_.uniq(getCombinations(synthesizeable).map(a => a.join(""))));
 console.log(_.uniq(getCombinations(synthesizeable).map(a => a.join(""))).length);
