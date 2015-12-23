@@ -1,20 +1,25 @@
 const requiredPresents = 34000000;
-const endCond = requiredPresents / 10;
 
-let houses = [];
-for (let houseNum = 0; houseNum < endCond; houseNum++) {
-	houses[houseNum] = 0;
-}
+function firstHouse(presentsPerHouse, stopAt50) {
+	const endCond = requiredPresents / presentsPerHouse;
 
-for (let elfNum = 1; elfNum < endCond; elfNum++) {
-	for (let housesVisited = 0, houseNum = elfNum; houseNum < endCond && housesVisited < 50; houseNum += elfNum, housesVisited++) {
-		houses[houseNum] += elfNum * 11;
+	let houses = Array(Math.floor(endCond)).fill(10);
+
+	for (let elfNum = 2; elfNum < endCond; elfNum++) {
+		let housesVisited = 0;
+
+		for (let houseNum = elfNum; houseNum < endCond; houseNum += elfNum) {
+			houses[houseNum] += elfNum * presentsPerHouse;
+
+			if (stopAt50) {
+				housesVisited++;
+				if (housesVisited === 50) break;
+			}
+		}
+
+		if (houses[elfNum] >= requiredPresents) return elfNum;
 	}
 }
 
-for (let houseNum = 0; houseNum < houses.length; houseNum++) {
-	if (houses[houseNum] >= requiredPresents) {
-		console.log("Minimum house number with enough presents:", houseNum);
-		break;
-	}
-}
+console.log("First house, part 1:", firstHouse(10, false));
+console.log("First house, part 2:", firstHouse(11, true));
