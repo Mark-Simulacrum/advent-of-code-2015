@@ -9,8 +9,6 @@ function parseDataLine(line) {
 	let speedTime = parseInt(/km\/s for (\d+) seconds/.exec(line)[1], 10);
 	let restTime = parseInt(/rest for (\d+) seconds/.exec(line)[1], 10);
 
-	console.log({ name, kmPerSec, speedTime, restTime });
-
 	return { name, kmPerSec, speedTime, restTime };
 }
 
@@ -62,10 +60,10 @@ function inLeadAtSecond(reindeers, second) {
 	}).reverse();
 
 	if (distanceObjects[0].distance === distanceObjects[1].distance) {
-		return [distanceObjects[0].name, distanceObjects[1].name];
+		return [distanceObjects[0], distanceObjects[1]];
 	}
 
-	return [distanceObjects[0].name];
+	return [distanceObjects[0]];
 }
 
 let reindeerNames = {};
@@ -78,7 +76,9 @@ for (let i = 1; i <= seconds + 1; i++) {
 	let inLeads = inLeadAtSecond(reindeers, i);
 
 	for (let inLead of inLeads)
-		reindeerNames[inLead]++;
+		reindeerNames[inLead.name]++;
 }
 
-console.log(reindeerNames);
+console.log("Part 1:", inLeadAtSecond(reindeers, seconds)[0].distance);
+let kvPairs = Object.keys(reindeerNames).map(key => [key, reindeerNames[key]]);
+console.log("Part 2:", kvPairs.sort((a, b) => a[1] - b[1]).reverse()[0][1]);

@@ -30,7 +30,7 @@ function parseInstruction(line) {
 
 instructions = instructions.map(parseInstruction);
 
-let registers = { a: 1, b: 0 };
+let registers = { a: 0, b: 0 };
 
 for (let i = 0; i < instructions.length;) {
 	let instruction = instructions[i];
@@ -65,4 +65,41 @@ for (let i = 0; i < instructions.length;) {
 	}
 }
 
-console.log(registers);
+console.log("Part 1:", registers.b);
+
+registers = { a: 1, b: 0 };
+
+for (let i = 0; i < instructions.length;) {
+	let instruction = instructions[i];
+	if (instruction.type === "increment") {
+		registers[instruction.register]++;
+
+		i++;
+	} else if (instruction.type === "half") {
+		registers[instruction.register] /= 2;
+
+		i++;
+	} else if (instruction.type === "triple") {
+		registers[instruction.register] *= 3;
+
+		i++;
+	} else if (instruction.type === "jumpifone") {
+		if (registers[instruction.register] === 1) {
+			i += instruction.offset;
+		} else {
+			i++;
+		}
+	} else if (instruction.type === "jump") {
+		i += instruction.offset;
+	} else if (instruction.type === "jumpifeven") {
+		if (registers[instruction.register] % 2 === 0) {
+			i += instruction.offset;
+		} else {
+			i++;
+		}
+	} else {
+		break;
+	}
+}
+
+console.log("Part 2:", registers.b);

@@ -30,6 +30,8 @@ const Operators = {
 	NOT: null
 };
 
+Object.keys(Operators).forEach(key => Operators[key] = key);
+
 const OperatorFunctions = {
 	Assignment: input => input,
 	AND: (lhs, rhs) => lhs & rhs,
@@ -38,8 +40,6 @@ const OperatorFunctions = {
 	RSHIFT: (lhs, rhs) => lhs >> rhs,
 	NOT: input => ~input & 0xffff
 };
-
-Object.keys(Operators).forEach(key => Operators[key] = key);
 
 function parseOperation(text) {
 	let binaryOperators = ["AND", "OR", "LSHIFT", "RSHIFT"];
@@ -72,14 +72,16 @@ function dependsOn(operation) {
 	return depends;
 }
 
-let wires = {};
+function getWires() {
+	let wires = {};
 
-for (let line of input.split("\n")) {
-	let lineObject = parseInputLine(line);
+	for (let line of input.split("\n")) {
+		let lineObject = parseInputLine(line);
 
-	console.log(lineObject.operation, "==>", lineObject.output);
+		wires[lineObject.output] = lineObject.operation;
+	}
 
-	wires[lineObject.output] = lineObject.operation;
+	return wires;
 }
 
 function areDependentsConstant(depends) {
@@ -94,7 +96,6 @@ function evaluateWires(wires) {
 	let wireNames = Object.keys(wires);
 
 	for (let wireName of wireNames) {
-		if (!wires[wireName]) console.log(wireName, wires[wireName])
 		if (!isNumber(wires[wireName])) {
 			if (areDependentsConstant(wires[wireName].depends)) {
 				let func = OperatorFunctions[wires[wireName].operator];
@@ -107,7 +108,11 @@ function evaluateWires(wires) {
 	}
 }
 
-wires.b = 16076;
-
+let wires = getWires();
 while (_.values(wires).filter(value => isNumber(value)).length !== Object.keys(wires).length) evaluateWires(wires);
-console.log(wires);
+console.log("Part 1:", wires.a);
+
+wires = getWires();
+wires.b = 16076;
+while (_.values(wires).filter(value => isNumber(value)).length !== Object.keys(wires).length) evaluateWires(wires);
+console.log("Part 2:", wires.a);

@@ -17,11 +17,11 @@ let wrappingNeeded = util.sum(presentDimensions.map(present =>
 	2 * present[2] * present[0]
 ));
 
-console.log("Sq. Ft. Wrapping Paper Needed:", wrappingNeeded);
+console.log("Part 1:", wrappingNeeded);
 
 let ribbonNeeded = util.sum(presentDimensions.map(present =>
 	2 * present[0] + 2 * present[1] + // perimeter of smallest face, ribbon wrap
 	present[0] * present[1] * present[2] // cubic area, bow
 ));
 
-console.log("Ft. Ribbon Needed:", ribbonNeeded);
+console.log("Part 2:", ribbonNeeded);

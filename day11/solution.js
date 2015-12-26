@@ -92,6 +92,7 @@ while (!isCorrectPassword(currentPassword)) {
 	currentPassword = incrementPassword(currentPassword);
 }
 
+console.log("Part 1:", currentPassword);
 currentPassword = incrementPassword(currentPassword);
 
 while (!isCorrectPassword(currentPassword)) {
@@ -99,4 +100,4 @@ while (!isCorrectPassword(currentPassword)) {
 	currentPassword = incrementPassword(currentPassword);
 }
 
-console.log(currentPassword, isCorrectPassword(currentPassword));
+console.log("Part 2:", currentPassword);

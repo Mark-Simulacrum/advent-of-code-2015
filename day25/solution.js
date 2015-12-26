@@ -33,5 +33,5 @@ for (let i = 1; i < iterations; i++) {
 	currentCode = currentCode % 33554393;
 }
 
-console.log(currentCode);
+console.log("Part 1:", currentCode);
 

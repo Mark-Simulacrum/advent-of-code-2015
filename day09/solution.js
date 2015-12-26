@@ -42,6 +42,5 @@ let travelDistances = util.permutations(cities).map(possibility => {
 
 let sortedDistances = travelDistances.sort((a, b) => a - b);
 
-console.log("Shortest distance (Part 1):", sortedDistances[0]);
-console.log("Longest distance (Part 2):",
-	sortedDistances[sortedDistances.length - 1]);
+console.log("Part 1:", sortedDistances[0]);
+console.log("Part 2:", sortedDistances[sortedDistances.length - 1]);

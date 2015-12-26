@@ -26,8 +26,6 @@ for (let line of input.split("\n")) {
 	people["Me"][person] = 0;
 }
 
-let permutations = util.permutations(Object.keys(people));
-
 function sittingNextTo(name, array) {
 	let index = array.indexOf(name);
 
@@ -64,7 +62,9 @@ function calculateHappiness(array) {
 }
 
 let bestOptionSoFar = { happiness: -Infinity, order: null };
-for (let permutation of permutations) {
+let keys = Object.keys(people);
+keys.splice(keys.indexOf("Me"), 1);
+for (let permutation of util.permutations(keys)) {
 	let happiness = calculateHappiness(permutation);
 
 	if (happiness > bestOptionSoFar.happiness) {
@@ -72,4 +72,15 @@ for (let permutation of permutations) {
 	}
 }
 
-console.log(bestOptionSoFar);
+console.log("Part 1:", bestOptionSoFar.happiness);
+
+let bestOptionSoFar2 = { happiness: -Infinity, order: null };
+for (let permutation of util.permutations(Object.keys(people))) {
+	let happiness = calculateHappiness(permutation);
+
+	if (happiness > bestOptionSoFar2.happiness) {
+		bestOptionSoFar2 = { happiness, order: permutation };
+	}
+}
+
+console.log("Part 2:", bestOptionSoFar2.happiness);

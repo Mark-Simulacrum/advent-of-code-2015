@@ -178,7 +178,7 @@ function playAllGames(me, boss, isHardMode) {
 }
 
 playAllGames(me, boss);
-console.log("Part One:", cheapestSpent);
+console.log("Part 1:", cheapestSpent);
 cheapestSpent = Infinity;
 playAllGames(me, boss, true);
-console.log("Hard mode:", cheapestSpent);
+console.log("Part 2:", cheapestSpent);

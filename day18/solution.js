@@ -38,17 +38,16 @@ function getNeighbors(currentState, row, column) {
 
 const width = lights[0].length - 1;
 const height = lights.length - 1;
-lights[0][0] = true;
-lights[0][width] = true;
-lights[height][0] = true;
-lights[height][width] = true;
+let part2 = false;
 
 function nextStateLight(currentState, row, column) {
-	if (row === 0 && column === 0) return true;
-	if (row === 0 && column === width) return true;
+	if (part2) {
+		if (row === 0 && column === 0) return true;
+		if (row === 0 && column === width) return true;
 
-	if (row === height && column === 0) return true;
-	if (row === height && column === width) return true;
+		if (row === height && column === 0) return true;
+		if (row === height && column === width) return true;
+	}
 
 	let neighbors = getNeighbors(currentState, row, column);
 
@@ -85,9 +84,23 @@ function amountOn(state) {
 	return lightsOn;
 }
 
+let l = lights.slice(0);
 let currentState = lights;
 for (let i = 0; i < 100; i++) {
 	currentState = nextState(currentState);
 }
 
-console.log("Lights on:", amountOn(currentState));
+console.log("Part 1:", amountOn(currentState));
+
+lights[0][0] = true;
+lights[0][width] = true;
+lights[height][0] = true;
+lights[height][width] = true;
+part2 = true;
+
+currentState = l;
+for (let i = 0; i < 100; i++) {
+	currentState = nextState(currentState);
+}
+
+console.log("Part 2:", amountOn(currentState));

@@ -1,15 +1,12 @@
 let input = require("fs").readFileSync("./data").toString();
 
-function isNice(string) {
-	// Part 1
-	return /([aeiou].*?){3}/.test(string) && /(.)\1/.test(string) && !(/ab|cd|pq|xy/.test(string));
-
-	// Part 2
-	// return /(..).*?\1/.test(string) && /(.).\1/.test(string);
+function isNice(part2) {
+	if (!part2) {
+		return line => /([aeiou].*?){3}/.test(line) && /(.)\1/.test(line) && !(/ab|cd|pq|xy/.test(line));
+	} else {
+		return line => /(..).*?\1/.test(line) && /(.).\1/.test(line);
+	}
 }
 
-let niceStrings = input
-	.split("\n")
-	.filter(line => isNice(line));
-
-console.log("Nice String amount:", niceStrings.length);
+console.log("Part 1:", input.split("\n").filter(isNice(false)).length);
+console.log("Part 2:", input.split("\n").filter(isNice(true)).length);

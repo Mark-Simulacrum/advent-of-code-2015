@@ -52,7 +52,31 @@ function addValue(ingredient, value) {
 let maxScore = 0;
 let keys = Object.keys(ingredients);
 
-let optionsTried = 0;
+for (let i of _.range(1, 100)) {
+	for (let j of _.range(1, 100 - i)) {
+		for (let k of _.range(1, 100 - i - j)) {
+			let h = 100 - i - j - k;
+
+			let scoreInput = [
+				addValue(ingredients[keys[0]], i),
+				addValue(ingredients[keys[1]], j),
+				addValue(ingredients[keys[2]], k),
+				addValue(ingredients[keys[3]], h)
+			];
+
+			let SC = calculateScore(scoreInput);
+
+			let score = SC.score;
+			let calories = SC.calories;
+
+			maxScore = Math.max(maxScore, score);
+		}
+	}
+}
+
+console.log("Part 1:", maxScore);
+maxScore = 0;
+
 for (let i of _.range(1, 100)) {
 	for (let j of _.range(1, 100 - i)) {
 		for (let k of _.range(1, 100 - i - j)) {
@@ -71,10 +95,8 @@ for (let i of _.range(1, 100)) {
 			let calories = SC.calories;
 
 			if (calories === 500) maxScore = Math.max(maxScore, score);
-
-			optionsTried++;
 		}
 	}
 }
 
-console.log(maxScore, optionsTried);
+console.log("Part 2:", maxScore);

@@ -37,10 +37,27 @@ aunts.forEach((aunt, index) => {
 	const unionTraits = auntTraits.filter(trait => hintTraits.indexOf(trait) >= 0);
 
 	if (unionTraits.length > 0) {
+		const isSuccessful = unionTraits.every(trait => hint[trait] === aunt[trait]);
+
+		if (isSuccessful) successfulAunts.push({ aunt, index });
+	}
+});
+
+console.log("Part 1:", successfulAunts[0].index + 1);
+
+successfulAunts = [];
+
+aunts.forEach((aunt, index) => {
+	const auntTraits = Object.keys(aunt);
+	const hintTraits = Object.keys(hint);
+
+	const unionTraits = auntTraits.filter(trait => hintTraits.indexOf(trait) >= 0);
+
+	if (unionTraits.length > 0) {
 		const isSuccessful = unionTraits.every(trait => traitMatch(trait, hint[trait], aunt[trait]));
 
 		if (isSuccessful) successfulAunts.push({ aunt, index });
 	}
 });
 
-console.log(successfulAunts);
+console.log("Part 2:", successfulAunts[0].index + 1);

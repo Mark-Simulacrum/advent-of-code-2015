@@ -31,6 +31,6 @@ let currentData = data;
 for (let i = 1; i <= 50; i++) {
 	currentData = applyOperation(currentData);
 
-	console.log("Iteration:", i, ";", currentData.length);
+	if (i == 40) console.log("Part 1:", currentData.length);
+	if (i == 50) console.log("Part 1:", currentData.length);
 }
-

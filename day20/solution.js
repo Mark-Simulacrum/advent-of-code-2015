@@ -21,5 +21,5 @@ function firstHouse(presentsPerHouse, stopAt50) {
 	}
 }
 
-console.log("First house, part 1:", firstHouse(10, false));
-console.log("First house, part 2:", firstHouse(11, true));
+console.log("Part 1:", firstHouse(10, false));
+console.log("Part 2:", firstHouse(11, true));
